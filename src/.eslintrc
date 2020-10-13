@@ -1,0 +1,15 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "quotes": "error",
+    "import/extensions": 0,
+    "eslintimport/no-unresolved": 0,
+    "react/prop-types": 0,
+    "react/jsx-props-no-spreading": 0,
+    "max-len": 0,
+    "object-curly-newline": 0
+  }
+}
