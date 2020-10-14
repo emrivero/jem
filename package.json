@@ -29,8 +29,8 @@
   },
   "build": {
     "extends": null,
-    "appId": "org.andalugeeks",
-    "artifactName": "andaluh-transcriptor-${version}-${arch}.${ext}",
+    "appId": "org.emrivero",
+    "artifactName": "jem-${version}-${arch}.${ext}",
     "icon": "electron/static",
     "files": [
       "electron/**/*",
@@ -40,7 +40,7 @@
       "description": "Job Estimation Manager",
       "category": "Utility",
       "maintainer": "Emilio Martinez Rivero <emiliomartinezriv@gmail.com",
-      "executableName": "andaluh-transcriptor",
+      "executableName": "jem",
       "target": [
         {
           "target": "deb"
