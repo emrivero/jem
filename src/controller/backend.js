@@ -1,1 +1,2 @@
-export default window.api;
+const { api } = window;
+export default api;

@@ -5,6 +5,7 @@ import { Add } from '@material-ui/icons';
 import useStyles from './styles';
 import api from '../../controller/backend';
 import Task from '../Task';
+import ConfirmDialog from '../ConfirmDialog';
 
 const Main = () => {
   const classes = useStyles();
@@ -12,6 +13,7 @@ const Main = () => {
   const [inputTask, setInputTask] = useState('');
   const [recordTask, setRecordTask] = useState('');
   const [viewTasks, setTasks] = useState(tasks);
+  const [optDialog, setOptDialog] = useState({ open: false, id: '' });
 
   const onKeyPress = (e) => {
     if (e.key === 'Enter' && inputTask !== '') {
@@ -21,9 +23,27 @@ const Main = () => {
     }
   };
 
-  const onRemove = (title) => () => {
-    api.cm.removeTask(title);
-    setTasks(api.cm.configuration.tasks);
+  const onClick = () => {
+    if (inputTask !== '') {
+      api.cm.addTask(inputTask);
+      setInputTask('');
+      setTasks(api.cm.configuration.tasks);
+    }
+  };
+
+  const openDialog = (task) => {
+    setOptDialog({
+      open: true,
+      id: task,
+    });
+  };
+
+  const onResponse = (flag, task) => {
+    if (flag) {
+      api.cm.removeTask(task);
+      setTasks(api.cm.configuration.tasks);
+    }
+    setOptDialog({ open: false });
   };
 
   const onToggle = (task) => {
@@ -58,7 +78,7 @@ const Main = () => {
                   onInput={(e) => setInputTask(e.target.value)}
                   onKeyPress={onKeyPress}
                 />
-                <IconButton color="inherit" aria-label="open menu" edge="end">
+                <IconButton color="inherit" aria-label="open menu" edge="end" onClick={onClick}>
                   <Add />
                 </IconButton>
               </div>
@@ -66,17 +86,24 @@ const Main = () => {
           </Grid>
         </Grid>
         {viewTasks.map((task) => (
-          <Grid key={task} item md={3} sm={4} xs={6}>
-            <Task
-              title={task}
-              remove={onRemove}
-              status={recordTask === task ? 'recording' : 'paused'}
-              toggle={onToggle}
-              stop={onStop}
-            />
-          </Grid>
+          <Task
+            key={task}
+            title={task}
+            remove={() => openDialog(task)}
+            status={recordTask === task ? 'recording' : 'paused'}
+            toggle={onToggle}
+            stop={onStop}
+          />
         ))}
       </Grid>
+      <ConfirmDialog
+        open={optDialog.open}
+        id={optDialog.id}
+        title="Borrar tarea"
+        message="¿Está seguro?"
+        handleClose={() => setOptDialog({ open: true })}
+        handleResponse={onResponse}
+      />
     </div>
   );
 };
