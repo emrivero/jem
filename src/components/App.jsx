@@ -1,21 +1,26 @@
-import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import About from './About';
+import Configuration from './Configuration';
+import Hours from './Hours';
 import Layout from './Layout';
 import Main from './Main';
 import Menu from './Menu';
 
-const hello = () => <div>Hello</div>;
+const App = () => {
+  const [path, setPath] = useState('/');
+  const onChange = (link) => {
+    setPath(link);
+  };
 
-const App = () => (
-  <Layout>
-    <Router basename="/">
-      <Menu />
-      <div>
-        <Route path="/" exact component={Main} />
-        <Route path="/configuration" component={hello} />
-      </div>
-    </Router>
-  </Layout>
-);
+  return (
+    <Layout>
+      <Menu onChange={onChange} />
+      <Main display={path === '/'} />
+      <Configuration display={path === '/configuration'} />
+      <About display={path === '/about'} />
+      <Hours display={path === '/hours'} />
+    </Layout>
+  );
+};
 
 export default App;

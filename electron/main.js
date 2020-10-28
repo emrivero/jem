@@ -13,7 +13,6 @@ require('dotenv').config();
 const createWindow = () => {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   const mainWindow = BuilderWindow.build(width, height);
-  mainWindow.webContents.openDevTools();
   events.register(mainWindow);
 };
 
@@ -26,8 +25,6 @@ const main = async () => {
   createWindow();
   mkConfigFolder();
   buildMenu();
-  // const menu = new Menu();
-  // Menu.setApplicationMenu();
   Timer.init();
 
   // Quit app when all windows are closed

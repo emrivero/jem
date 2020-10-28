@@ -2,7 +2,7 @@
   "name": "jem",
   "version": "1.0.0",
   "license": "GPLv3",
-  "productName": "Job Estimation Manager",
+  "productName": "JEM",
   "description": "Automatic time estimation of job tasks",
   "main": "electron/main.js",
   "repository": {
@@ -25,8 +25,7 @@
     "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-i18next": "^11.7.3",
-    "react-router-dom": "^5.2.0"
+    "react-i18next": "^11.7.3"
   },
   "build": {
     "extends": null,
@@ -42,8 +41,7 @@
       "category": "Utility",
       "maintainer": "Emilio Martinez Rivero <emiliomartinezriv@gmail.com",
       "executableName": "jem",
-      "target": [
-        {
+      "target": [{
           "target": "deb"
         },
         {

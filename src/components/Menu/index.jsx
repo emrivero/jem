@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTheme } from '@material-ui/core/styles';
 import { AppBar, CssBaseline, Toolbar, Typography } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import useStyles from './styles';
 
-export default function Menu() {
+export default function Menu({ onChange }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -29,9 +28,10 @@ export default function Menu() {
     setOpen(false);
   };
 
-  const clickOnItem = (text) => () => {
+  const clickOnItem = ({ text, path }) => () => {
     setTitle(text);
     setOpen(false);
+    onChange(path);
   };
 
   return (
@@ -79,11 +79,8 @@ export default function Menu() {
             { text: 'Configuración', path: '/configuration', icon: '' },
             { text: 'Acerca de', path: '/about', icon: '' },
           ].map((opt) => (
-            <ListItem key={opt.text} onClick={clickOnItem(opt.text)} button>
-              <Link to={opt.path} style={{ textDecoration: 'none', color: '#000' }}>
-                {/* <ListItemIcon></ListItemIcon> */}
-                <ListItemText primary={opt.text} />
-              </Link>
+            <ListItem key={opt.text} onClick={clickOnItem(opt)} button>
+              <ListItemText primary={opt.text} />
             </ListItem>
           ))}
         </List>

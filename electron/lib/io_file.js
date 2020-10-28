@@ -21,12 +21,12 @@ const mkConfigFolder = () => {
 /**
  * @param {string} content
  * @function
- * @return
+ * @return {bool}
  */
 const saveReport = (content) => {
   const date = new Date();
   const day = date.getDate();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const pathReport = path.resolve(CONFIG_FOLDER_PATH, `report_${year}${month}${day}`);
 
@@ -36,12 +36,26 @@ const saveReport = (content) => {
 /**
  * @param {string} content
  * @function
- * @return
+ * @return {string}
+ */
+const loadReportFromDate = (date) => {
+  const pathReport = path.resolve(CONFIG_FOLDER_PATH, `report_${date}`);
+  let content = null;
+  if (fs.existsSync(pathReport)) {
+    content = fs.readFileSync(pathReport, 'utf-8');
+  }
+  return content;
+};
+
+/**
+ * @param {string} content
+ * @function
+ * @return {string}
  */
 const loadReport = () => {
   const date = new Date();
   const day = date.getDate();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const pathReport = path.resolve(CONFIG_FOLDER_PATH, `report_${year}${month}${day}`);
 
@@ -56,7 +70,7 @@ const loadReport = () => {
 const existReport = () => {
   const date = new Date();
   const day = date.getDate();
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const pathReport = path.resolve(CONFIG_FOLDER_PATH, `report_${year}${month}${day}`);
 
@@ -103,4 +117,5 @@ module.exports = {
   existConfig,
   existReport,
   loadReport,
+  loadReportFromDate,
 };

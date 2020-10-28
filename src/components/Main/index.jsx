@@ -7,7 +7,7 @@ import api from '../../controller/backend';
 import Task from '../Task';
 import ConfirmDialog from '../ConfirmDialog';
 
-const Main = () => {
+const Main = ({ display }) => {
   const classes = useStyles();
   const { configuration: { tasks } } = api.cm;
   const [inputTask, setInputTask] = useState('');
@@ -62,7 +62,7 @@ const Main = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{ display: display ? '' : 'none' }}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Grid container>
